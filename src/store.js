@@ -17,8 +17,8 @@ export default new Vuex.Store({
   state: {
     allAccounts: null,
     accountNames: null,
-    currentAccountName: "Admin",
-    currentAccountType: "admin",
+    currentAccountName: null,
+    currentAccountType: null,
   },
 
   // A "getter" returns a computed property from the store, similar

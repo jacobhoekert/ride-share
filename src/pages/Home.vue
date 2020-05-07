@@ -1,25 +1,19 @@
 <template>
-  <v-app-bar app>
-    <div class="nav">
-      <router-link v-bind:to="{ name: 'home' }">
-        <v-toolbar-title class="logo">
-          Vroom Vroom
-        </v-toolbar-title>
-      </router-link>
-      <div class="right">
-        <v-select 
-          v-if="$store.state.currentAccountName" 
-          class="select" @input="setCurrentAccount" 
-          :options="$store.state.accountNames" 
-          :value="$store.state.currentAccountName" 
-          :clearable="false"
-        ></v-select>
-        <v-btn class="button" text v-bind:to="{ name: 'sign-up' }">
-          Sign Up
-        </v-btn>
-      </div>
-    </div>
-  </v-app-bar>
+  <div class="home-container">
+    <h1 class="title">Vroom Vroom</h1>
+    <p>Select an account to begin</p>
+    <v-select 
+      v-if="$store.state.accountNames" 
+      class="select" @input="setCurrentAccount" 
+      :options="$store.state.accountNames" 
+      :value="$store.state.currentAccountName" 
+      :clearable="false"
+    ></v-select>
+    <p>Or create a new account</p>
+    <v-btn class="button" text v-bind:to="{ name: 'sign-up' }">
+      <span class="btn-text">Sign Up</span>
+    </v-btn>
+  </div>
 </template>
 
 <script>
@@ -56,41 +50,45 @@ export default {
       }
     }
   }
-};
+}
 </script>
 
 <style scoped>
-  .nav {
-    width: 80%;
+  .home-container {
+    width: 30%;
     margin: auto;
-    display: flex;
-    justify-content: space-between;
+    margin-top: 200px;
   }
-  a {
-    text-decoration: none;
-  }
-  .logo {
-    font-size: 25px;
+  .title {
+    font-size: 50px;
     color: rgb(62, 62, 163);
     font-family: 'Abel', sans-serif;
-    margin: 0px;
+    text-align: center;
+    margin-bottom: 40px;
   }
-  .right {
-    display: flex;
+  p {
+    text-align: center;
+    font-family: 'Abel', sans-serif;
+    margin-bottom: 15px;
+    font-size: 18px;
   }
   .select {
     width: 200px;
+    margin: auto;
     font-size: 18px;
-    margin-right: 10px;
     font-family: 'Abel', sans-serif;
+    margin-bottom: 30px;
   }
   .button {
-    height: 50px;
+    display: block;
     color: white;
     background: rgb(89, 89, 212);
     width: 150px;
     font-size: 22px;
-    margin: 0px;
+    margin: auto;
     font-family: 'Abel', sans-serif;
+  }
+  .btn-text {
+    padding: 3px;
   }
 </style>
