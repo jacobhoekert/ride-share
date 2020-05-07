@@ -15,7 +15,10 @@ export default new Vuex.Store({
   // Cannot update state directly; use a `mutation` (below).
   // Access in components as `this.$store.state.currentAccount`
   state: {
-    currentAccount: null
+    allAccounts: null,
+    accountNames: null,
+    currentAccountName: "Admin",
+    currentAccountType: "admin",
   },
 
   // A "getter" returns a computed property from the store, similar
@@ -37,6 +40,18 @@ export default new Vuex.Store({
     },
     logOut(state) {
       state.currentAccount = null;
+    },
+    setAllAccounts(state, accounts) {
+      state.allAccounts = accounts;
+    },
+    setAccountNames(state, accountNames) {
+      state.accountNames = accountNames;
+    },
+    setCurrentAccountName(state, user) {
+      state.currentAccountName = user;
+    },
+    setCurrentAccountType(state, userType) {
+      state.currentAccountType = userType;
     }
   }
 });

@@ -1,8 +1,10 @@
 import Vue from "vue";
+import vuetify from "./plugins/vuetify";
 import router from "./router";
 import store from "./store";
 import axios from "axios";
 import App from "./App.vue";
+import './app.css';
 
 const axiosClient = axios.create({
   baseURL: "http://localhost:3000"
@@ -16,5 +18,6 @@ new Vue({
   },
   router,
   store,
+  vuetify,
   render: h => h(App)
 });

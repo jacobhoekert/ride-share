@@ -44,9 +44,38 @@ const init = async () => {
   server.route([
     {
       method: "GET",
-      path: "/",
-      handler: function (request, h) {
-        return "Hello, Hapi";
+      path: "/accounts",
+      handler: async (request, h) => {
+        try {
+          const accounts = [
+            {
+              firstName: "Admin",
+              lastName: "",
+              userType: "admin"
+            }
+          ];
+          const drivers = await Driver.query()
+            .select('firstName', 'lastName');
+          const passengers = await Passenger.query()
+            .select('firstName', 'lastName');
+          for (let driver of drivers) {
+            accounts.push({
+              firstName: driver.firstName,
+              lastName: driver.lastName,
+              userType: "driver"
+            });
+          }
+          for (let passenger of passengers) {
+            accounts.push({
+              firstName: passenger.firstName,
+              lastName: passenger.lastName,
+              userType: "passenger"
+            });
+          }
+          return accounts;
+        } catch (err) {
+          console.log(err);
+        }
       }
     }, 
   ]);
