@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <nav-bar />
-    <router-view></router-view>
+    <v-app>
+      <nav-bar />
+      <router-view></router-view>
+    </v-app>
   </div>
 </template>
 
@@ -12,18 +14,6 @@ export default {
   name: "App",
   components: {
     NavBar
-  },
-  beforeMount() {
-    this.$axios
-      .get("/accounts")
-      .then(result => {
-        this.$store.commit('setAllAccounts', result.data);
-        let accountNames = [];
-        for (let account of result.data) {
-          accountNames.push(account.firstName);
-        }
-        this.$store.commit('setAccountNames', accountNames);
-      }); 
   },
 };
 </script>

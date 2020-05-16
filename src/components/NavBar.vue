@@ -14,8 +14,8 @@
           :value="$store.state.currentAccountName" 
           :clearable="false"
         ></v-select>
-        <v-btn class="button" text v-bind:to="{ name: 'sign-up' }">
-          Sign Up
+        <v-btn v-on:click="goToSignUpPage" class="button" text >
+          <span class="btn-text">Sign Up</span>
         </v-btn>
       </div>
     </div>
@@ -36,24 +36,13 @@ export default {
         if (account.firstName == user) {
           this.$store.commit('setCurrentAccountName', user);
           this.$store.commit('setCurrentAccountType', account.userType);
-          this.changeUserPage();
+          this.$store.commit('setCurrentAccountId', account.id);
+          this.$router.push({ path: "/account/report" });
         }
       }
     },
-    changeUserPage() {
-      switch (this.$store.state.currentAccountType) {
-        case "admin":
-          this.$router.push({ name: "admin-page" });
-          break;
-        case "driver":
-          this.$router.push({ name: "driver-page" });
-          break;
-        case "passenger":
-          this.$router.push({ name: "passenger-page" });
-          break;
-        default:
-          this.$router.push({ name: "admin-page" });
-      }
+    goToSignUpPage() {
+      this.$router.push({ path: "/sign-up" });
     }
   }
 };

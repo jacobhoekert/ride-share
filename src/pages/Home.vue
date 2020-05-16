@@ -10,7 +10,7 @@
       :clearable="false"
     ></v-select>
     <p>Or create a new account</p>
-    <v-btn class="button" text v-bind:to="{ name: 'sign-up' }">
+    <v-btn v-on:click="goToSignUpPage" class="button" text>
       <span class="btn-text">Sign Up</span>
     </v-btn>
   </div>
@@ -24,30 +24,33 @@ export default {
   components: {
     vSelect,
   },
+  beforeMount() {
+    this.$store.commit('setCurrentAccountName', null);
+    this.$store.commit('setCurrentAccountType', null);
+    this.$axios
+      .get("/accounts")
+      .then(result => {
+        this.$store.commit('setAllAccounts', result.data);
+        let accountNames = [];
+        for (let account of result.data) {
+          accountNames.push(account.firstName);
+        }
+        this.$store.commit('setAccountNames', accountNames);
+      }); 
+  },
   methods: {
     setCurrentAccount(user) {
       for (let account of this.$store.state.allAccounts) {
         if (account.firstName == user) {
           this.$store.commit('setCurrentAccountName', user);
           this.$store.commit('setCurrentAccountType', account.userType);
-          this.changeUserPage();
+          this.$store.commit('setCurrentAccountId', account.id);
+          this.$router.push({ path: "/account/report" });
         }
       }
     },
-    changeUserPage() {
-      switch (this.$store.state.currentAccountType) {
-        case "admin":
-          this.$router.push({ name: "admin-page" });
-          break;
-        case "driver":
-          this.$router.push({ name: "driver-page" });
-          break;
-        case "passenger":
-          this.$router.push({ name: "passenger-page" });
-          break;
-        default:
-          this.$router.push({ name: "admin-page" });
-      }
+    goToSignUpPage() {
+      this.$router.push({ path: "/sign-up" });
     }
   }
 }
@@ -60,9 +63,9 @@ export default {
     margin-top: 200px;
   }
   .title {
-    font-size: 50px;
+    font-size: 50px !important;
     color: rgb(62, 62, 163);
-    font-family: 'Abel', sans-serif;
+    font-family: 'Abel', sans-serif !important;
     text-align: center;
     margin-bottom: 40px;
   }

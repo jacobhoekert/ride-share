@@ -25,8 +25,6 @@ create table if not exists "Drivers"
 		constraint driver_id
 			references "Driver",
 	ride_id serial not null
-		constraint drivers_pk
-			primary key
 		constraint ride_id
 			references "Ride"
 );
@@ -55,12 +53,10 @@ create table if not exists "Passenger"
 
 create table if not exists "Passengers"
 (
-	passenger_id serial not null
+	passenger_id integer not null
 		constraint passenger_id
 			references "Passenger",
-	ride_id serial not null
-		constraint passengers_pk
-			primary key
+	ride_id integer not null
 		constraint ride_id
 			references "Ride"
 );
@@ -73,8 +69,6 @@ create table if not exists "Ride"
 	date date not null,
 	time varchar not null,
 	distance double precision not null,
-	"fuelPrice" double precision not null,
-	fee double precision not null,
 	vehicle_id integer not null
 		constraint vehicle_id
 			references "Vehicle",
@@ -96,9 +90,8 @@ create table if not exists "Vehicle"
 	color varchar not null,
 	vehicle_type_id integer not null
 		constraint vehicle_type_id
-			references "Vehicle Type",
+			references "VehicleType",
 	capacity integer not null,
-	mpg double precision not null,
 	"licenseState" varchar not null,
 	"licenseNumber" varchar not null
 );
@@ -110,8 +103,3 @@ create table if not exists "VehicleType"
 			primary key,
 	type varchar not null
 );
-
-
-
-
-

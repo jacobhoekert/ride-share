@@ -19,6 +19,10 @@ export default new Vuex.Store({
     accountNames: null,
     currentAccountName: null,
     currentAccountType: null,
+    currentAccountId: null,
+    dashboardTitle: null,
+    hasBackButton: false,
+    previousTitle: null
   },
 
   // A "getter" returns a computed property from the store, similar
@@ -28,6 +32,9 @@ export default new Vuex.Store({
   getters: {
     isLoggedIn(state) {
       return state.currentAccount !== null;
+    },
+    getCurrentAccountId(state) {
+      return state.currentAccountId;
     }
   },
 
@@ -52,6 +59,19 @@ export default new Vuex.Store({
     },
     setCurrentAccountType(state, userType) {
       state.currentAccountType = userType;
-    }
+    },
+    setCurrentAccountId(state, id) {
+      state.currentAccountId = id;
+    },
+    setDashboardTitle(state, title) {
+      state.dashboardTitle = title;
+    },
+    setHasBackButton(state, bool) {
+      state.hasBackButton = bool;
+    },
+    setPreviousTitle(state, title) {
+      state.previousTitle = title;
+    },
+    
   }
 });
