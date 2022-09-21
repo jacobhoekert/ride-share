@@ -25,7 +25,7 @@
     "vue-dynamic-dropdown": "^1.0.12",
     "vue-router": "^3.1.6",
     "vue-select": "^3.10.3",
-    "vuetify": "^2.2.27",
+    "vuetify": "^2.6.10",
     "vuex": "^3.2.0"
   },
   "devDependencies": {
